@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -21,6 +22,11 @@ public class ProfileActivity extends AppCompatActivity {
         mImageButton = (ImageButton)findViewById(R.id.imageButton2);
 
         Log.e(ACTIVITY_NAME,"OnCreate" );
+
+
+        mImageButton.setOnClickListener( b -> {
+            dispatchTakePictureIntent();
+        });
     }
 
     @Override

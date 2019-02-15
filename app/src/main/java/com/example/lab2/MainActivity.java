@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
             //Give directions to go from this page, to SecondActivity
             Intent nextPage = new Intent(MainActivity.this,ProfileActivity.class);
 
+            nextPage.putExtra("typed", typeField.getText());
+
+
             //Now make the transition:
             startActivityForResult(nextPage, 2);
         });
