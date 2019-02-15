@@ -23,6 +23,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         Log.e(ACTIVITY_NAME,"OnCreate" );
 
+        //Intent previous = getIntent().getStringExtra("typed");
+
 
         mImageButton.setOnClickListener( b -> {
             dispatchTakePictureIntent();
