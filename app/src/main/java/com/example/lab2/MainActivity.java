@@ -9,22 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences email;
+    SharedPreferences sp;
     EditText typeField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        //setContentView(R.layout.activity_main_grid);
-        //setContentView(R.layout.activity_main_relative);
-        //setContentView(R.layout.activity_main_linear);
         setContentView(R.layout.activity_main_lab3);
         //setContentView(R.layout.activity_main_lab3b);
 
-        typeField =(EditText)findViewById(R.id.editTextView2);
-        email= getSharedPreferences("FileName",Context.MODE_PRIVATE);
-        String savedEmail= email.getString("Email",  " ");
 
+        //save email using shared preferences
+        typeField =(EditText)findViewById(R.id.editTextView2);
+        sp= getSharedPreferences("FileName",Context.MODE_PRIVATE);
+        String savedEmail= sp.getString("Email",  " ");
         typeField.setText(savedEmail);
 
         //Setting onClickListener for login button
@@ -34,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
             //Give directions to go from this page, to SecondActivity
             Intent nextPage = new Intent(MainActivity.this,ProfileActivity.class);
 
-            nextPage.putExtra("typed", typeField.getText());
+            //save email in email edit box in next page
+            nextPage.putExtra("typed", typeField.getText().toString());
 
 
             //Now make the transition:
@@ -46,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor editor = email.edit();
+        //get an editor object
+        SharedPreferences.Editor editor = sp.edit();
 
-        //to save what was typed
+        //to save what was typed under name
         String inputTyped = typeField.getText().toString();
 
         editor.putString("Email",inputTyped);
