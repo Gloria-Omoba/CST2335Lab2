@@ -19,13 +19,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //save email using shared preferences
-        typeField =(EditText)findViewById(R.id.editTextView2);
+        typeField =(EditText)findViewById(R.id.email);
         sp= getSharedPreferences("FileName",Context.MODE_PRIVATE);
         String savedEmail= sp.getString("Email",  " ");
         typeField.setText(savedEmail);
 
         //Setting onClickListener for login button
-        Button loginButton = (Button)findViewById(R.id.button3);
+        Button loginButton = (Button)findViewById(R.id.loginButton);
         loginButton.setOnClickListener( b -> {
 
             //Give directions to go from this page, to SecondActivity

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 
@@ -19,13 +20,20 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_lab3b);
 
-        mImageButton = (ImageButton)findViewById(R.id.imageButton2);
 
         Log.e(ACTIVITY_NAME,"OnCreate" );
 
-        //Intent previous = getIntent().getStringExtra("typed");
+        //get intent from previous page
+        Intent previous = getIntent();
 
+        String previousTyped = previous.getStringExtra("typed");
 
+        //Put the string that was sent from FirstActivity into the edit text:
+        EditText email2 = (EditText)findViewById(R.id.email2);
+        email2.setText(previousTyped);
+
+        //initialize and set on  click listener on the image button
+        mImageButton = (ImageButton)findViewById(R.id.imageButton1);
         mImageButton.setOnClickListener( b -> {
             dispatchTakePictureIntent();
         });
