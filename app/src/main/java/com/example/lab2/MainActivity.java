@@ -14,8 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_lab3);
-        //setContentView(R.layout.activity_main_lab3b);
+        setContentView(R.layout.activity_main_first_page);
 
 
         //save email using shared preferences

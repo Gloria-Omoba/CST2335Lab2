@@ -6,7 +6,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -18,7 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_lab3b);
+        setContentView(R.layout.activity_main_second_page);
 
 
         Log.e(ACTIVITY_NAME,"OnCreate" );
