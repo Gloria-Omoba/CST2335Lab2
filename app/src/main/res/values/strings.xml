@@ -6,4 +6,7 @@
     <string name="checkButton">Check this out!</string>
     <string name="switchButton">Switch on/off</string>
     <string name="TextSpace">Type your answer in here</string>
+    <string name="send">SEND</string>
+    <string name="receive">RECEIVE</string>
+
 </resources>
