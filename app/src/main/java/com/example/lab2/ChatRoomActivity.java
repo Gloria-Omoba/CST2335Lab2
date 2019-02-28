@@ -7,17 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    int numObjects = 6;
+    ArrayList<String> list=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         SwipeRefreshLayout refresher = (SwipeRefreshLayout)findViewById(R.id.refresher) ;
         refresher.setOnRefreshListener(()-> {
-            numObjects *= 2;
+           // numObjects *= 2;
             ((MyListAdapter) aListAdapter).notifyDataSetChanged();
             refresher.setRefreshing( false );
         });
@@ -44,12 +44,29 @@ public class ChatRoomActivity extends AppCompatActivity {
         myList.setOnItemClickListener(( parent,  view,  position,  id) -> {
             Log.e("you clicked on :" , "item "+ position);
 
-            numObjects = 20;
+           // numObjects = 20;
             ((MyListAdapter) aListAdapter).notifyDataSetChanged();
         });
 
+        EditText text = (EditText)findViewById(R.id.Edit1);
+
+        Button sendButton = (Button)findViewById(R.id.sendButton);
+
+        //listener on send button
+        sendButton.setOnClickListener(b->{
+            text.clearComposingText();
+            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
+        });
+
+        //listener on receive button
+        Button receiveButton = (Button)findViewById(R.id.receiveButton);
+        sendButton.setOnClickListener(b->{
+            text.clearComposingText();
+            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
+        });
 
     }
+
 
     //This class needs 4 functions to work properly:
     protected class MyListAdapter extends BaseAdapter
@@ -58,25 +75,26 @@ public class ChatRoomActivity extends AppCompatActivity {
         @Override
         //returns the number of items to display in the list
         public int getCount() {
-            return numObjects;
+            return list.size();
         }
 
         //returns what to show at a row position
         public Object getItem(int position){
-            return "SHow this in row "+ position;
+            return list.get(position);
         }
 
         //creates a view object to go in a row of the ListView
-        public View getView(int position, View old, ViewGroup parent)
+        public View getView(int position, View convertView, ViewGroup parent)
         {
             LayoutInflater inflater = getLayoutInflater();
 
-            View newView = inflater.inflate(R.layout.single_row, parent, false );
+            View newView = inflater.inflate(R.layout.activity_main_thirdpage,parent, false );
 
 
-            TextView rowText = (TextView)newView.findViewById(R.id.textOnRow);
+            EditText rowText = (EditText)newView.findViewById(R.id.Edit1);
             String stringToShow = getItem(position).toString();
             rowText.setText( stringToShow );
+
             //return the row:
             return newView;
         }
@@ -86,65 +104,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         {
             return position;
         }
+
     }
 
-    //A copy of ArrayAdapter. You just give it an array and it will do the rest of the work.
-    protected class MyArrayAdapter<E> extends BaseAdapter
-    {
-        private List<E> dataCopy = null;
-
-        //Keep a reference to the data:
-        public MyArrayAdapter(List<E> originalData)
-        {
-            dataCopy = originalData;
-        }
-
-        //You can give it an array
-        public MyArrayAdapter(E [] array)
-        {
-            dataCopy = Arrays.asList(array);
-        }
 
 
-        //Tells the list how many elements to display:
-        public int getCount()
-        {
-            return dataCopy.size();
-        }
-
-
-        public E getItem(int position){
-            return dataCopy.get(position);
-        }
-
-        public View getView(int position, View old, ViewGroup parent)
-        {
-            //get an object to load a layout:
-            LayoutInflater inflater = getLayoutInflater();
-
-            //Recycle views if possible:
-            TextView root = (TextView)old;
-            //If there are no spare layouts, load a new one:
-            if(old == null)
-                root = (TextView)inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-
-            //Get the string to go in row: position
-            String toDisplay = getItem(position).toString();
-
-            //Set the text of the text view
-            root.setText(toDisplay);
-
-            //Return the text view:
-            return root;
-        }
-
-
-        //Return 0 for now. We will change this when using databases
-        public long getItemId(int position)
-        {
-            return 0;
-        }
-    }
 }
 
 
@@ -159,4 +123,4 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
 
-}
+
