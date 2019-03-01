@@ -26,11 +26,10 @@ public class ProfileActivity extends AppCompatActivity {
         //get intent from previous page
         Intent previous = getIntent();
 
-        String previousTyped = previous.getStringExtra("typed");
 
         //Put the string that was sent from FirstActivity into the edit text:
         EditText email2 = (EditText)findViewById(R.id.email2);
-        email2.setText(previousTyped);
+        email2.setText(previous.getStringExtra("typed"));
 
         //initialize and set on  click listener on the image button
         mImageButton = (ImageButton)findViewById(R.id.imageButton1);
@@ -40,13 +39,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         //initialize and set on  click listener on the chat room button
         Button chatButton = (Button)findViewById(R.id.chatButton);
-        chatButton.setOnClickListener(c->{
+        chatButton.setOnClickListener(d->{
 
             //Give directions to go from this page, to ChatRoomActivity
-            Intent nextPage = new Intent(ProfileActivity.this,ChatRoomActivity.class);
+            Intent page3 = new Intent(ProfileActivity.this,ChatRoomActivity.class);
 
             //Now make the transition:
-            startActivity(nextPage);
+            startActivity(page3);
         });
     }
 
