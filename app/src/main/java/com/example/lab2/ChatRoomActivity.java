@@ -3,112 +3,77 @@ package com.example.lab2;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    ArrayList<String> list=new ArrayList<String>();
+    private ListView listView;
+    private View sendButton;
+    private View receiveButton;
+    private EditText editText;
+    boolean myMessage = true;
+    private List<ChatRoomMessage> chatMessages;
+    private ArrayAdapter<ChatRoomMessage> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_thirdpage);
 
-        ListView myList = (ListView) findViewById(R.id.list);
+        //to store messages
+        chatMessages = new ArrayList<>();
 
-        ListAdapter aListAdapter = new MyListAdapter();
+        listView = (ListView) findViewById(R.id.list);
+        editText = (EditText)findViewById(R.id.Edit1);
+        sendButton = (Button)findViewById(R.id.sendButton);
+        receiveButton = (Button)findViewById(R.id.receiveButton);
 
+        adapter= new MessageAdapter(this, R.layout.message_left, chatMessages);
 
-        SwipeRefreshLayout refresher = (SwipeRefreshLayout)findViewById(R.id.refresher) ;
-        refresher.setOnRefreshListener(()-> {
-           // numObjects *= 2;
-            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
-            refresher.setRefreshing( false );
-        });
-
-        //set adapter on the list view
-        myList.setAdapter(aListAdapter );
+        //get adapter to list view
+        listView.setAdapter(adapter);
 
 
-        //This listens for items being clicked in the list view
-        myList.setOnItemClickListener(( parent,  view,  position,  id) -> {
-            Log.e("you clicked on :" , "item "+ position);
+        //Event listener on send button
+        sendButton.setOnClickListener(b-> {
 
-           // numObjects = 20;
-            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
-        });
+                    if (editText.getText().toString().trim().equals("")) {
+                        Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //add message to list
+                        ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), myMessage);
+                        chatMessages.add(chat);
 
-        EditText text = (EditText)findViewById(R.id.Edit1);
+                        //notify chatroom if listitems have changed
+                        adapter.notifyDataSetChanged();
+                        editText.setText("");
+                        // this is used so that is true then set it to false and vice versa so that
+                        // messages could come alternatively on left and right side
+                        if (myMessage) {
+                            myMessage = false;
+                        } else {
+                            myMessage = true;
+                        }
+                    }
+                });
 
-        Button sendButton = (Button)findViewById(R.id.sendButton);
 
-        //listener on send button
-        sendButton.setOnClickListener(b->{
-            text.clearComposingText();
-            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
-        });
 
         //listener on receive button
-        Button receiveButton = (Button)findViewById(R.id.receiveButton);
-        sendButton.setOnClickListener(b->{
-            text.clearComposingText();
-            ((MyListAdapter) aListAdapter).notifyDataSetChanged();
+        receiveButton.setOnClickListener(b->{
+
         });
 
     }
-
-
-    //This class needs 4 functions to work properly:
-    protected class MyListAdapter extends BaseAdapter
-    {
-
-        @Override
-        //returns the number of items to display in the list
-        public int getCount() {
-            return list.size();
-        }
-
-        //returns what to show at a row position
-        public Object getItem(int position){
-            return list.get(position);
-        }
-
-        //creates a view object to go in a row of the ListView
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            LayoutInflater inflater = getLayoutInflater();
-
-            View newView = inflater.inflate(R.layout.activity_main_thirdpage,parent, false );
-
-
-            EditText rowText = (EditText)newView.findViewById(R.id.Edit1);
-            String stringToShow = getItem(position).toString();
-            rowText.setText( stringToShow );
-
-            //return the row:
-            return newView;
-        }
-
-        //returns the database id of the item at position i
-        public long getItemId(int position)
-        {
-            return position;
-        }
-
-    }
-
-
-
 }
 
 
