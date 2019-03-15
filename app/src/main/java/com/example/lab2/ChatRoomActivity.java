@@ -1,6 +1,7 @@
 package com.example.lab2;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,7 +43,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         //get adapter to list view
         listView.setAdapter(adapter);
 
-
         //Event listener on send button
         sendButton.setOnClickListener(b-> {
 
@@ -53,7 +53,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), myMessage);
                         chatMessages.add(chat);
 
-                        //notify chatroom if listitems have changed
+                        //notify chat room if list items have changed
                         adapter.notifyDataSetChanged();
                         editText.setText("");
                         // this is used so that is true then set it to false and vice versa so that
@@ -70,7 +70,24 @@ public class ChatRoomActivity extends AppCompatActivity {
 
         //listener on receive button
         receiveButton.setOnClickListener(b->{
+            if (editText.getText().toString().trim().equals("")) {
+                Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
+            } else {
+                //add message to list
+                ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), myMessage);
+                chatMessages.add(chat);
 
+                //notify chat room if list items have changed
+                adapter.notifyDataSetChanged();
+                editText.setText("");
+                // this is used so that is true then set it to false and vice versa so that
+                // messages could come alternatively on left and right side
+                if (myMessage) {
+                    myMessage = false;
+                } else {
+                    myMessage = true;
+                }
+            }
         });
 
     }
