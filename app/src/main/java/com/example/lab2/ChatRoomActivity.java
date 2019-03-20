@@ -50,19 +50,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
                     } else {
                         //add message to list
-                        ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), myMessage);
+                        ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), true);
                         chatMessages.add(chat);
 
                         //notify chat room if list items have changed
                         adapter.notifyDataSetChanged();
                         editText.setText("");
-                        // this is used so that is true then set it to false and vice versa so that
-                        // messages could come alternatively on left and right side
-                        if (myMessage) {
-                            myMessage = false;
-                        } else {
-                            myMessage = true;
-                        }
                     }
                 });
 
@@ -74,19 +67,12 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
             } else {
                 //add message to list
-                ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), myMessage);
+                ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), false);
                 chatMessages.add(chat);
 
                 //notify chat room if list items have changed
                 adapter.notifyDataSetChanged();
                 editText.setText("");
-                // this is used so that is true then set it to false and vice versa so that
-                // messages could come alternatively on left and right side
-                if (myMessage) {
-                    myMessage = false;
-                } else {
-                    myMessage = true;
-                }
             }
         });
 

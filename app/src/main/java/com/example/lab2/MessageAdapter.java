@@ -15,10 +15,10 @@ public class MessageAdapter extends ArrayAdapter<ChatRoomMessage> {
     private List<ChatRoomMessage> messages;
 
 
-    public MessageAdapter(Activity context, int resource, List<ChatRoomMessage> objects) {
-        super(context, resource, objects);
+    public MessageAdapter(Activity context, int resource, List<ChatRoomMessage> messages) {
+        super(context, resource, messages);
         this.activity = context;
-        this.messages = objects;
+        this.messages = messages;
     }
 
     @Override
@@ -33,9 +33,9 @@ public class MessageAdapter extends ArrayAdapter<ChatRoomMessage> {
         int viewType = getItemViewType(position);
 
         if (chatMessage.hasMessage()) {
-            layoutResource = R.layout.message_left;
-        } else {
             layoutResource = R.layout.message_right;
+        } else {
+            layoutResource = R.layout.message_left;
         }
 
         if (convertView != null) {
