@@ -8,5 +8,11 @@
     <string name="TextSpace">Type your answer in here</string>
     <string name="send">SEND</string>
     <string name="receive">RECEIVE</string>
-
+    <string name="image">Image</string>
+    <string name="Edit_hint">Type here</string>
+    <string name="textView">Text View</string>
+    <string name="emailText">Enter your email address:</string>
+    <string name="emailHint">Type your email here</string>
+    <string name="passHint">Type your password:</string>
+    <string name="loginButton">LOGIN</string>
 </resources>
