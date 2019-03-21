@@ -3,18 +3,35 @@ package com.example.lab2;
 public class ChatRoomMessage {
 
     private String message;
-    private boolean hasMessage;
+    private boolean isSent;
+    private long messageID;
 
-    public ChatRoomMessage(String message, boolean hasMessage) {
+    public ChatRoomMessage(String message, boolean isSent) {
         this.message = message;
-        this.hasMessage = hasMessage;
+        this.isSent = isSent;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public boolean hasMessage() {
-        return hasMessage;
+    public void setSend(boolean isSent) {
+        this.isSent = isSent;
+    }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setMessageID(long messageID) {
+        this.messageID = messageID;
+    }
+
+    public long getMessageID() {
+        return messageID;
     }
 }

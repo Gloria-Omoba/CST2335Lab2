@@ -32,7 +32,7 @@ public class MessageAdapter extends ArrayAdapter<ChatRoomMessage> {
         ChatRoomMessage chatMessage = getItem(position);
         int viewType = getItemViewType(position);
 
-        if (chatMessage.hasMessage()) {
+        if (chatMessage.isSent()) {
             layoutResource = R.layout.message_right;
         } else {
             layoutResource = R.layout.message_left;
