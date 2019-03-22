@@ -55,14 +55,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                         Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
                     } else {
                         //add message to list
-                        ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), true);
-                        chatMessages.add(chat);
+                        //ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), true);
+                        //chatMessages.add(chat);
 
                         String message = editText.getText().toString();
                         db.insertData(message,true);
 
                         //notify chat room if list items have changed
-                        adapter.notifyDataSetChanged();
+                        //adapter.notifyDataSetChanged();
                         editText.setText("");
                         viewData();
                     }
@@ -76,14 +76,14 @@ public class ChatRoomActivity extends AppCompatActivity {
                 Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
             } else {
                 //add message to list
-                ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), false);
-                chatMessages.add(chat);
+                //ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), false);
+               // chatMessages.add(chat);
 
                 String message = editText.getText().toString();
                 db.insertData(message,false);
 
                 //notify chat room if list items have changed
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
                 editText.setText("");
                 viewData();
             }
@@ -101,7 +101,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
                 //notify chat room if list items have changed
                 adapter.notifyDataSetChanged();
-                editText.setText("");
+               // editText.setText("");
 
             }
         }
