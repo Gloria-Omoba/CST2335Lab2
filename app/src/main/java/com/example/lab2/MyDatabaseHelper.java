@@ -11,7 +11,7 @@ import android.util.Log;
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "ChatRoomDB";
-    private static final String DB_TABLE = "hatMessages";
+    private static final String DB_TABLE = "ChatMessages";
 
     //columns
     private static final String COL_MESSAGE = "Message";

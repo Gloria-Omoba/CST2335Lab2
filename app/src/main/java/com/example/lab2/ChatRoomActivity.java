@@ -1,7 +1,9 @@
 package com.example.lab2;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,9 +26,10 @@ public class ChatRoomActivity extends AppCompatActivity {
     boolean myMessage = true;
     private List<ChatRoomMessage> chatMessages;
     private ArrayAdapter<ChatRoomMessage> adapter;
+    MyDatabaseHelper db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_thirdpage);
 
@@ -37,11 +40,13 @@ public class ChatRoomActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.Edit1);
         sendButton = (Button)findViewById(R.id.sendButton);
         receiveButton = (Button)findViewById(R.id.receiveButton);
-
+        db = new MyDatabaseHelper(this);
         adapter= new MessageAdapter(this, R.layout.message_left, chatMessages);
 
         //get adapter to list view
         listView.setAdapter(adapter);
+
+        viewData();
 
         //Event listener on send button
         sendButton.setOnClickListener(b-> {
@@ -53,9 +58,13 @@ public class ChatRoomActivity extends AppCompatActivity {
                         ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), true);
                         chatMessages.add(chat);
 
+                        String message = editText.getText().toString();
+                        db.insertData(message,true);
+
                         //notify chat room if list items have changed
                         adapter.notifyDataSetChanged();
                         editText.setText("");
+                        viewData();
                     }
                 });
 
@@ -70,12 +79,32 @@ public class ChatRoomActivity extends AppCompatActivity {
                 ChatRoomMessage chat = new ChatRoomMessage(editText.getText().toString(), false);
                 chatMessages.add(chat);
 
+                String message = editText.getText().toString();
+                db.insertData(message,false);
+
                 //notify chat room if list items have changed
                 adapter.notifyDataSetChanged();
                 editText.setText("");
+                viewData();
             }
         });
 
+    }
+
+    private void viewData(){
+        Cursor cursor = db.viewData();
+
+        if (cursor.getCount() != 0){
+            while (cursor.moveToNext()){
+                ChatRoomMessage model = new ChatRoomMessage(cursor.getString(1), cursor.getInt(2)==0?true:false);
+                chatMessages.add(model);
+
+                //notify chat room if list items have changed
+                adapter.notifyDataSetChanged();
+                editText.setText("");
+
+            }
+        }
     }
 }
 
