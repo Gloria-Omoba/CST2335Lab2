@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lab 3</string>
+    <string name="app_name">Lab 4</string>
     <string name="hello_message">Here are my widgets:</string>
     <string name="buttonText">BUTTON</string>
     <string name="checkButton">Check this out!</string>
