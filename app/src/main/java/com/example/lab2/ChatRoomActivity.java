@@ -64,6 +64,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                         //notify chat room if list items have changed
                         //adapter.notifyDataSetChanged();
                         editText.setText("");
+                        chatMessages.clear();
                         viewData();
                     }
                 });
@@ -85,6 +86,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 //notify chat room if list items have changed
                 //adapter.notifyDataSetChanged();
                 editText.setText("");
+                chatMessages.clear();
                 viewData();
             }
         });

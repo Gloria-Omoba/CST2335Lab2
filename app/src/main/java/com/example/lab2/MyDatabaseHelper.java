@@ -59,4 +59,28 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
         return cursor;
     }
+
+    /*//view data
+    public String printCursor(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * from "+DB_TABLE;
+        Cursor cursor = db.rawQuery(query, null);
+
+        String result  = "";
+
+        int message = cursor.getColumnIndex(COL_MESSAGE);
+        int messageId = cursor.getColumnIndex(COL_MESSAGEID);
+        int  isSent = cursor.getColumnIndex(COL_ISSENT);
+
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+            result = result + cursor.getString(message)+ " " + cursor.getString(messageId) +" "+ cursor.getString(isSent) + "\n" ;
+        }
+
+        return result;
+    }*/
+
+
+
+
+
 }
