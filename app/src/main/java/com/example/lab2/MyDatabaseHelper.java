@@ -61,6 +61,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         //Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
         return cursor;
+
+
+
     }
 
 

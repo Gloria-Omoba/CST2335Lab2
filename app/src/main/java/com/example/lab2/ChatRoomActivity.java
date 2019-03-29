@@ -96,6 +96,8 @@ public class ChatRoomActivity extends AppCompatActivity {
     private void viewData(){
         Cursor cursor = db.viewData();
 
+       /// db.printCursor(cursor);
+
         if (cursor.getCount() != 0){
             while (cursor.moveToNext()){
                 ChatRoomMessage model = new ChatRoomMessage(cursor.getString(1), cursor.getInt(2)==0?true:false);
@@ -107,6 +109,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
             }
         }
+
     }
 }
 
