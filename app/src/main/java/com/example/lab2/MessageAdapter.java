@@ -1,75 +1,61 @@
 package com.example.lab2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
 
 
-public class MessageAdapter extends ArrayAdapter<ChatRoomMessage> {
+public class MessageAdapter extends BaseAdapter {
 
-    private Activity activity;
+    private Context context;
     private List<ChatRoomMessage> messages;
+    LayoutInflater inflater;
 
 
-    public MessageAdapter(Activity context, int resource, List<ChatRoomMessage> messages) {
-        super(context, resource, messages);
-        this.activity = context;
+    public MessageAdapter(Context context, List<ChatRoomMessage> messages) {
+        this.context = context;
         this.messages = messages;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    @Override
+    public int getCount() {
+        return messages.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return messages.get(position);
+    }
+
+    @Override
+    public long getItemId(int id) {
+        return (long) id;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        View newView = convertView;
 
         //used to load XML layout
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        int layoutResource = 0; // determined by view type
-        ChatRoomMessage chatMessage = getItem(position);
-        int viewType = getItemViewType(position);
-
-        if (chatMessage.isSent()) {
-            layoutResource = R.layout.message_right;
+        if (messages.get(position).isSent()) {
+            newView = inflater.inflate(R.layout.message_right, null);
         } else {
-            layoutResource = R.layout.message_left;
+            newView= inflater.inflate(R.layout.message_left,null );
         }
 
-        if (convertView != null) {
-            holder = (ViewHolder) convertView.getTag();
-        } else {
-            convertView = inflater.inflate(layoutResource, parent, false);
-            holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
-        }
+        TextView  msg = newView.findViewById(R.id.txt_msg);
+        msg.setText(messages.get(position).getMessage());
 
-        //set message content
-        holder.msg.setText(chatMessage.getMessage());
-
-        return convertView;
+        return newView;
     }
 
-    @Override
-    public int getViewTypeCount() {
-        // return the total number of view types. this value should never change
-        // at runtime. Value 2 is returned because of left and right views.
-        return 2;
-    }
 
-    @Override
-    public int getItemViewType(int position) {
-        // return a value between 0 and (getViewTypeCount - 1)
-        return position % 2;
-    }
-
-    private class ViewHolder {
-        private TextView msg;
-
-        public ViewHolder(View v) {
-            msg = (TextView) v.findViewById(R.id.txt_msg);
-        }
-    }
 }

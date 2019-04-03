@@ -7,6 +7,9 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.Arrays;
+
 import static android.content.ContentValues.TAG;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
@@ -14,7 +17,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "ChatRoomDB";
     private static final String DB_TABLE = "ChatMessages";
 
-    private static final String VERSION_NUMBER = "1";
+  //  private static final String VERSION_NUMBER = "1";
 
     //columns
     private static final String COL_MESSAGE = "Message";
@@ -51,50 +54,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(DB_TABLE, null, contentValues);
 
-        return result != -1; //if result = -1 data doesn't insert
+        return result != -1;
     }
 
-    //view data
+
     public Cursor viewData(){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "Select * from "+DB_TABLE;
         Cursor cursor = db.rawQuery(query, null);
-        //Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
+        Log.d("Database Version Number", Integer.toString(db.getVersion()));
+        printCursor(cursor);
         return cursor;
-
-
-
     }
 
 
-    public void printCursor(Cursor c){
+    public void printCursor(Cursor cursor) {
 
-        Log.d(TAG, "PrintCursor()  version number:"+ VERSION_NUMBER);
-
-        int numberCols = c.getColumnCount();
-        int message = c.getColumnIndex(COL_MESSAGE);
-        int messageId = c.getColumnIndex(COL_MESSAGEID);
-        int  isSent = c.getColumnIndex(COL_ISSENT);
-
-        Log.d(TAG, "PrintCursor() numberColumns:"+ c.getColumnCount());
-
-
-        for(int i = 0;i<=numberCols;i++){
-
-            Log.d(TAG, "PrintCursor() nameOfColumns:"+ c.getColumnName(i));
-
-        }
-
-        Log.d(TAG, "PrintCursor() NoRows:"+ c.getCount());
-
-
-        while(c.moveToNext()) {
-            String message1 = c.getString(message);
-            String sent = c.getString(isSent);
-            long id = c.getLong(messageId);
-
-            Log.d(TAG, "printCursor() row: "+ message1+ " " + sent +" "+ id );
-
-        }
+        Log.d("Column Count", Integer.toString(cursor.getColumnCount()));
+        Log.d("Column Names", Arrays.toString(cursor.getColumnNames()));
+        Log.d("Row Count", Integer.toString(cursor.getCount()));
+        Log.d("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
     }
 }
