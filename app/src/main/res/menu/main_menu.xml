@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/overflow_menu"
+        android:title="overflow"
+        android:visible="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_lock"
+        android:icon="@android:drawable/ic_lock_lock"
+        android:title="lock"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_point"
+        android:icon="@android:drawable/presence_online"
+        android:title="point"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_star"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="star"
+        android:visible="true"
+        app:showAsAction="always" />
+</menu>
