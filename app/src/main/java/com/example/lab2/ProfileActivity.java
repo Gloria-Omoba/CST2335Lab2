@@ -47,6 +47,16 @@ public class ProfileActivity extends AppCompatActivity {
             //Now make the transition:
             startActivity(page3);
         });
+
+        Button weatherButton = (Button)findViewById(R.id.weatherButton);
+        weatherButton.setOnClickListener(d->{
+
+            //Give directions to go from this page, to ChatRoomActivity
+            Intent page4 = new Intent(ProfileActivity.this,WeatherForecast.class);
+
+            //Now make the transition:
+            startActivity(page4);
+        });
     }
 
     @Override
