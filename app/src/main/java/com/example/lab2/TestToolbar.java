@@ -1,5 +1,4 @@
 package com.example.lab2;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
