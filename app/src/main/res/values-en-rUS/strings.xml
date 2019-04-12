@@ -15,4 +15,7 @@
     <string name="emailHint">Type your email here</string>
     <string name="passHint">Type your password:</string>
     <string name="loginButton">LOGIN</string>
+    <string name="delButton">DELETE THIS MESSAGE</string>
+    <string name="idTextV">ID =</string>
+    <string name="message">Message here:</string>
 </resources>

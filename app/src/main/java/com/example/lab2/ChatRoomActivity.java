@@ -1,5 +1,6 @@
 package com.example.lab2;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         sendButton = (Button)findViewById(R.id.sendButton);
         receiveButton = (Button)findViewById(R.id.receiveButton);
         chatMessages = new ArrayList<>();
+        boolean isTable = findViewById(R.id.fragmentLocation) != null; // check if frame is loaded
 
         db = new MyDatabaseHelper(this);
         adapter = new MessageAdapter(this, chatMessages);
@@ -42,6 +44,32 @@ public class ChatRoomActivity extends AppCompatActivity {
         //get adapter to list view
         listView.setAdapter(adapter);
         viewData();
+
+        listView.setOnItemClickListener((list, item, position, id) -> {
+            Bundle dataToPass = new Bundle();
+            dataToPass.putString("item", chatMessages.get(position).getMessage());
+           // dataToPass.putInt("id", position);
+            dataToPass.putLong("dataId", chatMessages.get(position).getMessageID());
+
+
+            if (isTable){
+                DetailFragment dFragment = new DetailFragment(); //add a DetailFragment
+                dFragment.setArguments( dataToPass ); //pass it a bundle for information
+                dFragment.setTablet(true);  //tell the fragment if it's running on a tablet or not
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragmentLocation, dFragment) //Add the fragment in FrameLayout
+                        .addToBackStack("AnyName") //make the back button undo the transaction
+                        .commit(); //actually load the fragment.
+            }else {
+                Intent emptyActivity = new Intent(this, EmptyActivity.class);
+                emptyActivity.putExtras(dataToPass);
+                startActivityForResult(emptyActivity, 345);
+            }
+
+        });
+
+
 
         //Event listener on send button
         sendButton.setOnClickListener(b-> {
@@ -62,7 +90,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
 
 
-        //listener on receive button
+        /*//listener on receive button
         receiveButton.setOnClickListener(b->{
             if (editText.getText().toString().trim().equals("")) {
                 Toast.makeText(ChatRoomActivity.this, "Please enter message", Toast.LENGTH_SHORT).show();
@@ -74,7 +102,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                 chatMessages.clear();
                  viewData();
             }
-        });
+        });*/
 
     }
 
@@ -91,6 +119,27 @@ public class ChatRoomActivity extends AppCompatActivity {
             }
          }
 
+    }
+
+    //This function only gets called on the phone. The tablet never goes to a new activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 345)
+        {
+            if(resultCode == RESULT_OK) //if you hit the delete button instead of back button
+            {
+                long id = data.getLongExtra("dataId", 0);
+                deleteMessageId((int)id);
+            }
+        }
+    }
+
+    public void deleteMessageId(int id)
+    {
+
+        db.deleteEntry(id);
+        chatMessages.clear();
+        viewData();
     }
 }
 

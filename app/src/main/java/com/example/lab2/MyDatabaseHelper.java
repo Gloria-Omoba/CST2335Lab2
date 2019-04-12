@@ -75,4 +75,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         Log.d("Row Count", Integer.toString(cursor.getCount()));
         Log.d("Cursor Object", DatabaseUtils.dumpCursorToString(cursor));
     }
+
+    public int deleteEntry(int id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String where="MessageID=?";
+        int numberOFEntriesDeleted= db.delete(DB_TABLE, where, new String[]{Integer.toString(id)});
+        return numberOFEntriesDeleted;
+    }
 }

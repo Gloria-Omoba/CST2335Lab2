@@ -44,16 +44,16 @@ public class MessageAdapter extends BaseAdapter {
         View newView = convertView;
 
         //used to load XML layout
+        if(newView == null) {
+            if (messages.get(position).isSent()) {
+                newView = inflater.inflate(R.layout.message_right, null);
+            } else {
+                newView = inflater.inflate(R.layout.message_left, null);
+            }
 
-        if (messages.get(position).isSent()) {
-            newView = inflater.inflate(R.layout.message_right, null);
-        } else {
-            newView= inflater.inflate(R.layout.message_left,null );
+            TextView msg = newView.findViewById(R.id.txt_msg);
+            msg.setText(messages.get(position).getMessage());
         }
-
-        TextView  msg = newView.findViewById(R.id.txt_msg);
-        msg.setText(messages.get(position).getMessage());
-
         return newView;
     }
 
