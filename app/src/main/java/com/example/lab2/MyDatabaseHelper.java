@@ -43,7 +43,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //insert data
-    public boolean insertData(String message, boolean isSend) {
+    public long insertData(String message, boolean isSend) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_MESSAGE, message);
@@ -54,7 +54,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(DB_TABLE, null, contentValues);
 
-        return result != -1;
+        return result;
     }
 
 

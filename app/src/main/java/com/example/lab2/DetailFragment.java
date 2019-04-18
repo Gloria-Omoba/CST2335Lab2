@@ -34,7 +34,7 @@ public class DetailFragment extends Fragment {
 
         //show the message
         TextView message = (TextView)result.findViewById(R.id.message);
-        message.setText("message: "+dataFromActivity.getString("item"));
+        message.setText("message: "+ dataFromActivity.getString("item"));
 
         //show the listid:
         //TextView idView = (TextView)result.findViewById(R.id.position);

@@ -16,13 +16,12 @@ import java.util.List;
 
 public class ChatRoomActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private View sendButton;
-    private View receiveButton;
-    private EditText editText;
-    boolean myMessage = true;
-    private List<ChatRoomMessage> chatMessages;
-    private MessageAdapter adapter;
+    ListView listView;
+    Button sendButton;
+    Button receiveButton;
+    EditText editText;
+    //boolean myMessage = true;
+    List<ChatRoomMessage> chatMessages;
     MyDatabaseHelper db;
 
     @Override
@@ -36,13 +35,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         sendButton = (Button)findViewById(R.id.sendButton);
         receiveButton = (Button)findViewById(R.id.receiveButton);
         chatMessages = new ArrayList<>();
+        db = new MyDatabaseHelper(this);
         boolean isTable = findViewById(R.id.fragmentLocation) != null; // check if frame is loaded
 
-        db = new MyDatabaseHelper(this);
-        adapter = new MessageAdapter(this, chatMessages);
-
-        //get adapter to list view
-        listView.setAdapter(adapter);
         viewData();
 
         listView.setOnItemClickListener((list, item, position, id) -> {
@@ -111,11 +106,15 @@ public class ChatRoomActivity extends AppCompatActivity {
 
          if (cursor.getCount() != 0){
             while (cursor.moveToNext()){
-                ChatRoomMessage model = new ChatRoomMessage(cursor.getString(1), cursor.getInt(2)==0);
+                ChatRoomMessage model = new ChatRoomMessage(cursor.getString(1), cursor.getInt(2)==0?true:false, cursor.getLong(0));
                 chatMessages.add(model);
+                MessageAdapter adapter = new MessageAdapter(getApplicationContext(), chatMessages);
+
+                //get adapter to list view
+                listView.setAdapter(adapter);
 
                 //notify chat room if list items have changed
-                adapter.notifyDataSetChanged();
+              // adapter.notifyDataSetChanged();
             }
          }
 

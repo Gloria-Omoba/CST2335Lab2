@@ -6,9 +6,11 @@ public class ChatRoomMessage {
     private boolean isSent;
     private long messageID;
 
-    public ChatRoomMessage(String message, boolean isSent) {
+    public ChatRoomMessage(String message, boolean isSent, long messageID) {
         this.message = message;
         this.isSent = isSent;
+        this.messageID = messageID;
+
     }
 
     public void setMessage(String message) {

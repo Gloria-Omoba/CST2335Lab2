@@ -1,11 +1,10 @@
 package com.example.lab2;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
@@ -21,7 +20,7 @@ public class MessageAdapter extends BaseAdapter {
     public MessageAdapter(Context context, List<ChatRoomMessage> messages) {
         this.context = context;
         this.messages = messages;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -35,8 +34,8 @@ public class MessageAdapter extends BaseAdapter {
     }
 
     @Override
-    public long getItemId(int id) {
-        return (long) id;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class MessageAdapter extends BaseAdapter {
                 newView = inflater.inflate(R.layout.message_left, null);
             }
 
-            TextView msg = newView.findViewById(R.id.txt_msg);
+            TextView msg = (TextView)newView.findViewById(R.id.txt_msg);
             msg.setText(messages.get(position).getMessage());
         }
         return newView;
