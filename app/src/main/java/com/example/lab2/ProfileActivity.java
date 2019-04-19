@@ -45,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
             Intent page3 = new Intent(ProfileActivity.this,ChatRoomActivity.class);
 
             //Now make the transition:
-            startActivity(page3);
+            startActivityForResult(page3,345);
         });
 
         Button weatherButton = (Button)findViewById(R.id.weatherButton);

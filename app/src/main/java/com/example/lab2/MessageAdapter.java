@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class MessageAdapter extends BaseAdapter {
         if(newView == null) {
             if (messages.get(position).isSent()) {
                 newView = inflater.inflate(R.layout.message_right, null);
+
             } else {
                 newView = inflater.inflate(R.layout.message_left, null);
             }
