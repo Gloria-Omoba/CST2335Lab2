@@ -1,8 +1,6 @@
-package com.example.lab2;
+package com.example.app;
 
 import android.os.Bundle;
-import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
+import com.example.lab2.R;
 
 import java.util.ArrayList;
 import java.util.List;

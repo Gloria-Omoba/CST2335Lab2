@@ -1,4 +1,4 @@
-package com.example.lab2;
+package com.example.app;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.example.lab2.R;
 
 
 public class ProfileActivity extends AppCompatActivity {
